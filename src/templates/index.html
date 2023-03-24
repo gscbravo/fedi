@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Fediverse Posts</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Last {{ posts|length }} posts on the Fediverse">
+	<style>
+		body {
+			font-family: sans-serif;
+			font-size: 1.1em;
+			background: #222831;
+			color: #eeeeee;
+		}
+		#fediposts {
+			width: 90%;
+			margin: 0 auto;
+		}
+		.fedipost {
+			background: #000000;
+			color: #ffffff;
+			margin: 0;
+			padding: .75em;
+			overflow-wrap: break-word;
+		}
+		#fediattachments {
+			color: #00ff00;
+		}
+		.fediattach {
+			max-width: 100%;
+			height: auto;
+		}
+		a {
+			color: #00ff00;
+		}
+		a:hover {
+			color: #ff0000;
+		}
+		hr {
+			margin: .25em;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="fediposts">
+		<h1 id="site-name">Fediverse Posts (Last {{ posts|length }} posts)</h1>
+		<div id="site-options">
+			{% if media == '1' %}
+			<p><a href="/">Hide Media Attachments</a></p>
+			{% else %}
+			<p><a href="/?media=1">Show Media Attachments</a></p>
+			{% endif %}
+		</div>
+		<hr>
+		{% for post in posts %}
+		<div class="fedipost">
+			<h2><a href="{{ post['account']['url'] }}" rel="nofollow noopener noreferrer" target="_blank">{{ post['account']['display_name'] }} (@{{ post['account']['username'] }})</a></h2>
+			{{ post['content'] | safe }}
+			{% if media == '1' %}
+			<h3 id="fediattachments">Attachments</h3>
+			{% for attachment in post['media_attachments'] %}
+			<p>Type: {{ attachment['type'] }}</p>
+			<a href="{{ attachment['url'] }}" rel="nofollow noopener noreferrer" target="_blank"><img class="fediattach" src="{{ attachment['preview_url'] }}" alt="{{ attachment['description'] }}"></a>
+			{% endfor %}
+			{% endif %}
+			<p><a href="{{ post['url'] }}" rel="nofollow noopener noreferrer" target="_blank">Permalink</a></p>
+		</div>
+		<hr>
+		{% endfor %}
+	</div>
+</body>
+</html>
+
