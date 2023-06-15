@@ -10,7 +10,7 @@ attachments.
 ## Usage
 
 ```
-pip3 install -r requirements.txt
+pip3 install flask requests
 cd src
 flask run
 ```
