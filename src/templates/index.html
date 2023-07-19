@@ -45,7 +45,7 @@
 	<div id="fediposts">
 		<h1 id="site-name">Fediverse Posts (Last {{ posts|length }} posts)</h1>
 		<div id="site-options">
-			{% if media == '1' %}
+			{% if media == "1" %}
 			<p><a href="/">Hide Media Attachments</a></p>
 			{% else %}
 			<p><a href="/?media=1">Show Media Attachments</a></p>
@@ -56,7 +56,7 @@
 		<div class="fedipost">
 			<h2><a href="{{ post['account']['url'] }}" rel="nofollow noopener noreferrer" target="_blank">{{ post['account']['display_name'] }} (@{{ post['account']['username'] }})</a></h2>
 			{{ post['content'] | safe }}
-			{% if media == '1' %}
+			{% if media == "1" %}
 			<h3 id="fediattachments">Attachments</h3>
 			{% for attachment in post['media_attachments'] %}
 			<p>Type: {{ attachment['type'] }}</p>
